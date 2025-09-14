@@ -1,103 +1,137 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { Box, Button, Typography, Card, CardMedia, CardContent } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
-export default function Home() {
+const spaces = [
+  {
+    name: 'Cozy Loft',
+    description: 'A beautiful loft in the city center.',
+    image: '/assets/space1.jpg',
+  },
+  {
+    name: 'Beach House',
+    description: 'Enjoy the sea breeze in this modern beach house.',
+    image: '/assets/space2.jpg',
+  },
+  {
+    name: 'Conference Room',
+    description: 'Perfect for meetings and workshops.',
+    image: '/assets/space3.jpg',
+  },
+];
+
+export default function DashboardHome() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <Box sx={{ fontFamily: 'Blinker, sans-serif', bgcolor: '#f8f8ff', minHeight: '100vh' }}>
+      {/* Top Bar */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          bgcolor: '#f8f8ff',
+          boxShadow: '0 2px 8px rgba(140, 82, 255, 0.08)',
+          px: 4,
+          py: 2,
+        }}
+      >
+        <Link href="/login" passHref legacyBehavior>
+          <Button
+            variant="outlined"
+            sx={{
+              color: '#8C52FF',
+              borderColor: '#8C52FF',
+              fontWeight: 700,
+              fontFamily: 'Blinker, sans-serif',
+              mr: 2,
+              bgcolor: '#fff',
+              '&:hover': { bgcolor: '#f3eaff', borderColor: '#8C52FF' },
+            }}
+          >
+            Login
+          </Button>
+        </Link>
+        <Link href="/signup" passHref legacyBehavior>
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: '#8C52FF',
+              color: '#fff',
+              fontWeight: 700,
+              fontFamily: 'Blinker, sans-serif',
+              boxShadow: 'none',
+              '&:hover': { bgcolor: '#7a45e5' },
+            }}
+          >
+            Signup
+          </Button>
+        </Link>
+      </Box>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* Logo and Welcome */}
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 6, mb: 4 }}>
+        <img
+          src="/assets/logo-transparent.png"
+          alt="Spaces Logo"
+          style={{ width: 180, marginBottom: 16 }}
+        />
+        <Typography
+          variant="h4"
+          sx={{
+            color: '#8C52FF',
+            fontWeight: 800,
+            fontFamily: 'Blinker, sans-serif',
+            mb: 2,
+            textAlign: 'center',
+          }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          Welcome to Spaces by Fanppit
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            color: '#333',
+            fontFamily: 'Blinker, sans-serif',
+            textAlign: 'center',
+            maxWidth: 500,
+          }}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          Discover, rent, or buy any kind of space. From cozy lofts to modern offices, Spaces makes it easy to find your perfect place.
+        </Typography>
+      </Box>
+
+      {/* Spaces Cards */}
+      <Box sx={{ px: { xs: 2, md: 8 }, pb: 6 }}>
+        <Grid container spacing={4} justifyContent="center" component="div">
+          {spaces.map((space, idx) => (
+            <Grid item xs={12} md={6} key={idx} component="div">
+              <Card sx={{ boxShadow: 4, borderRadius: 3 }}>
+                <CardMedia
+                  component="img"
+                  height="180"
+                  image={space.image}
+                  alt={space.name}
+                  sx={{ objectFit: 'cover' }}
+                />
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    sx={{ color: '#8C52FF', fontWeight: 700, fontFamily: 'Blinker, sans-serif' }}
+                  >
+                    {space.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: '#555', fontFamily: 'Blinker, sans-serif' }}
+                  >
+                    {space.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Box>
   );
 }
