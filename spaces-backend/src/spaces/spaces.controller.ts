@@ -1,12 +1,60 @@
-import { Controller, Get, Post, Body, Req, UseGuards, Param, Patch, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { SpacesService } from './spaces.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { RolesGuard } from '../auth/roles.guard';
-import { Roles } from '../auth/roles.decorator';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('spaces')
 export class SpacesController {
   constructor(private spacesService: SpacesService) {}
+
+  @Post()
+  @UseInterceptors(
+    FilesInterceptor('files', 10, {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, cb) => {
+          const randomName = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  async create(@Body() body: any, @UploadedFiles() files: Express.Multer.File[]) {
+    try {
+      const parsedBody = {
+        ...body,
+        capacity: Number(body.capacity),
+        hourlyRate: Number(body.hourlyRate),
+        dailyRate: Number(body.dailyRate),
+        amenities: Array.isArray(body.amenities)
+          ? body.amenities
+          : JSON.parse(body.amenities || '[]'),
+      };
+
+      const images = files.filter(f => f.mimetype.startsWith('image/')).map(f => f.path);
+      const videos = files.filter(f => f.mimetype.startsWith('video/')).map(f => f.path);
+
+      return this.spacesService.create({
+        ...parsedBody,
+        images,
+        videos,
+      });
+    } catch (err) {
+      console.error('Error creating space:', err);
+      throw err;
+    }
+  }
 
   @Get()
   findAll() {
@@ -18,24 +66,21 @@ export class SpacesController {
     return this.spacesService.findById(id);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('brand_owner')
-  @Post()
-  create(@Req() req: any, @Body() body: any) {
-    return this.spacesService.create(req.user._id || req.user.sub, body);
-  }
-
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('brand_owner')
   @Patch(':id')
-  update(@Req() req: any, @Param('id') id: string, @Body() body: any) {
-    return this.spacesService.update(id, req.user._id || req.user.sub, body);
+  async update(@Param('id') id: string, @Body() body: any) {
+    const parsedBody: any = { ...body };
+    if (parsedBody.capacity) parsedBody.capacity = Number(parsedBody.capacity);
+    if (parsedBody.hourlyRate) parsedBody.hourlyRate = Number(parsedBody.hourlyRate);
+    if (parsedBody.dailyRate) parsedBody.dailyRate = Number(parsedBody.dailyRate);
+    if (parsedBody.amenities && typeof parsedBody.amenities === 'string') {
+      parsedBody.amenities = JSON.parse(parsedBody.amenities);
+    }
+
+    return this.spacesService.update(id, parsedBody);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('brand_owner')
   @Delete(':id')
-  remove(@Req() req: any, @Param('id') id: string) {
-    return this.spacesService.remove(id, req.user._id || req.user.sub);
+  remove(@Param('id') id: string) {
+    return this.spacesService.remove(id);
   }
 }
