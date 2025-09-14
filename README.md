@@ -1,5 +1,7 @@
 # Fanpit Spaces Prototype
 
+Postman - https://.postman.co/workspace/My-Workspace~2afa3e38-7e6b-40c7-8281-eb53f3396162/request/39674797-e910fa90-3c44-4e5a-b403-bb786ec899b3?action=share&creator=39674797
+
 ## Setup & Approach
 
 This project demonstrates a minimal booking platform where:  

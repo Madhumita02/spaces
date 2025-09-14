@@ -1,0 +1,118 @@
+{
+  "info": {
+    "name": "Spaces API",
+    "_postman_id": "abcd-1234-xyz",
+    "description": "Postman collection for Spaces platform (Auth, Consumer, Brand Owner)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "http://localhost:3001/auth/signup",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"mypassword\",\n  \"role\": \"consumer\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "http://localhost:3001/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"mypassword\"\n}"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Consumer",
+      "item": [
+        {
+          "name": "Get Consumer Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": "http://localhost:3001/consumer"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Brand Owner (Spaces)",
+      "item": [
+        {
+          "name": "Create Space",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwtToken}}" }
+            ],
+            "url": "http://localhost:3001/spaces",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "name", "value": "Fanpit Beach House" },
+                { "key": "description", "value": "Escape to serenity at Ocean Breeze Beach House..." },
+                { "key": "category", "value": "Event Space" },
+                { "key": "address", "value": "Sholinganallur" },
+                { "key": "city", "value": "Chennai" },
+                { "key": "state", "value": "Tamil Nadu" },
+                { "key": "postalCode", "value": "600119" },
+                { "key": "capacity", "value": "34" },
+                { "key": "seating", "value": "Open Space" },
+                { "key": "areaSize", "value": "5000sqft" },
+                { "key": "hourlyRate", "value": "23" },
+                { "key": "dailyRate", "value": "300" },
+                { "key": "contact", "value": "nmmadhumita@gmail.com" },
+                { "key": "amenities", "value": "[\"WiFi\", \"Parking\"]" },
+                { "key": "files", "type": "file", "src": [] }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Spaces",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3001/spaces"
+          }
+        },
+        {
+          "name": "Get Space By ID",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3001/spaces/{{spaceId}}"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "jwtToken",
+      "value": ""
+    },
+    {
+      "key": "spaceId",
+      "value": ""
+    }
+  ]
+}
