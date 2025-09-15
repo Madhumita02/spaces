@@ -3,13 +3,13 @@
 Postman - https://.postman.co/workspace/My-Workspace~2afa3e38-7e6b-40c7-8281-eb53f3396162/request/39674797-e910fa90-3c44-4e5a-b403-bb786ec899b3?action=share&creator=39674797
 
 ## Routes
-http://localhost:3000/signup
-http://localhost:3000/login
-http://localhost:3000/brand-owner
-http://localhost:3000/consumer
-http://localhost:3000/staff
-http://localhost:3000/
-http://localhost:3000/brand-owner/haha
+https://spaces-backend-wrmn.onrender.com/signup
+https://spaces-backend-wrmn.onrender.com/login
+https://spaces-backend-wrmn.onrender.com/brand-owner
+https://spaces-backend-wrmn.onrender.com/consumer
+https://spaces-backend-wrmn.onrender.com/staff
+https://spaces-backend-wrmn.onrender.com/
+https://spaces-backend-wrmn.onrender.com/brand-owner/haha
 
 
 ## Setup & Approach

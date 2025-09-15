@@ -41,7 +41,7 @@ export default function HahaPage() {
             mb: 2,
           }}
         >
-          Sorry, I didn't have time 😢
+          Sorry, I didn&apos;t have time 😢
         </Typography>
         <Typography
           sx={{
